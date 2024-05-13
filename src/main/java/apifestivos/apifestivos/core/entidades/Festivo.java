@@ -4,6 +4,8 @@ import java.util.Date;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -11,10 +13,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "festivo")
 public class Festivo {
 
   @Id
@@ -23,14 +23,14 @@ public class Festivo {
   @Column(name = "id")
   private int id;
 
-  @Column(name = "dia", length = 10)
+  @Column(name = "dia")
   private int dia;
 
-  @Column(name = "mes", length = 10)
+  @Column(name = "mes")
   private int mes;
 
-  @Column(name = "año", length = 10)
-  private int año;
+  @Column(name = "nombre", length = 100)
+  private String nombre;
 
   @Column(name = "diaspascua")
   private int diasPascua;
@@ -41,16 +41,16 @@ public class Festivo {
 
   private Date fecha;
 
-  public Festivo(int id, int dia, int mes, int año, int diasPascua, Tipo tipo) {
+  public Festivo() {
+  }
+
+  public Festivo(int id, int dia, int mes, String nombre, int diasPascua, Tipo tipo) {
     this.id = id;
     this.dia = dia;
     this.mes = mes;
-    this.año = año;
+    this.nombre = nombre;
     this.diasPascua = diasPascua;
     this.tipo = tipo;
-  }
-
-  public Festivo() {
   }
 
   public int getId() {
@@ -77,12 +77,12 @@ public class Festivo {
     this.mes = mes;
   }
 
-  public int getAño() {
-    return año;
+  public String getNombre() {
+    return nombre;
   }
 
-  public void setAño(int año) {
-    this.año = año;
+  public void setNombre(String nombre) {
+    this.nombre = nombre;
   }
 
   public int getDiasPascua() {
