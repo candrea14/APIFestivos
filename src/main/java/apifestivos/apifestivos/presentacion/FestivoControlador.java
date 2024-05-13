@@ -1,5 +1,9 @@
 package apifestivos.apifestivos.presentacion;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -20,17 +24,24 @@ public class FestivoControlador {
   @RequestMapping(value = "/verificar/{año}/{mes}/{dia}", method = RequestMethod.GET)
   public String verificarFestivo(@PathVariable int año, @PathVariable int mes, @PathVariable int dia) {
     if (servicio.esFechaValida(String.valueOf(año) + "-" + String.valueOf(mes) + "-" + String.valueOf(dia))) {
+      @SuppressWarnings("deprecation")
       Date fecha = new Date(año - 1900, mes - 1, dia);
-      return servicio.esFestivo(fecha) ? "Es Festivo" : "No es festivo";
+      return servicio.esFestivo(fecha) ? "Es festivo" : "No es festivo";
     } else {
-      return "Fecha No valida";
+      return "Fecha No Válida";
     }
 
   }
 
   @RequestMapping(value = "/obtener/{año}", method = RequestMethod.GET)
-  public List<Date> obtener(@PathVariable int año) {
-    return servicio.obtenerFestivos(año);
+  public List<String> obtener(@PathVariable int año) {
+    List<Date> lista = servicio.obtenerFestivos(año);
+    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+    List<String> fechasFormateadas = new ArrayList<>();
+    for (Date fecha : lista) {
+      fechasFormateadas.add(dateFormat.format(fecha));
+    }
+    return fechasFormateadas;
   }
 
 }

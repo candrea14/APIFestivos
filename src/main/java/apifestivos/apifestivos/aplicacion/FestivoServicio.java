@@ -50,19 +50,19 @@ public class FestivoServicio implements IFestivoServicio {
   }
 
   private Date agregarDias(Date fecha, int dias) {
-    Calendar cal = Calendar.getInstance();
-    cal.setTime(fecha);
-    cal.add(Calendar.DATE, dias);
-    System.out.println(cal.getTime());
-    return cal.getTime();
+    Calendar calendar = Calendar.getInstance();
+    calendar.setTime(fecha);
+    calendar.add(Calendar.DATE, dias);
+    System.out.println(calendar.getTime());
+    return calendar.getTime();
   }
 
   private Date siguienteLunes(Date fecha) {
-    Calendar c = Calendar.getInstance();
-    c.setTime(fecha);
-    if (c.get(Calendar.DAY_OF_WEEK) > Calendar.MONDAY)
-      fecha = agregarDias(fecha, 8 - c.get(Calendar.DAY_OF_WEEK));
-    else if (c.get(Calendar.DAY_OF_WEEK) < Calendar.MONDAY)
+    Calendar calendar = Calendar.getInstance();
+    calendar.setTime(fecha);
+    if (calendar.get(Calendar.DAY_OF_WEEK) > Calendar.MONDAY)
+      fecha = agregarDias(fecha, 9 - calendar.get(Calendar.DAY_OF_WEEK));
+    else if (calendar.get(Calendar.DAY_OF_WEEK) < Calendar.MONDAY)
       fecha = agregarDias(fecha, 1);
     return fecha;
   }
